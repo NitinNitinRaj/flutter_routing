@@ -49,6 +49,25 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
+  List<Meal> _favoriteMeals = [];
+
+  void _addFavoriteToggle(String mealId) {
+    int mealIndex = _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    if (mealIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(mealIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(dummyMeals.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  bool _isFavorited(String mealId) {
+    return _favoriteMeals.any((meal) => meal.id == mealId);
+  }
+
   final _theme = ThemeData(
     primarySwatch: Colors.pink,
     canvasColor: const Color.fromRGBO(255, 254, 229, 1),
@@ -79,10 +98,11 @@ class _MainAppState extends State<MainApp> {
       ),
       initialRoute: "/",
       routes: {
-        "/": (_) => const TabPageTwo(),
+        "/": (_) => TabPageTwo(favoriteMeals: _favoriteMeals),
         CategoriesMealsScreen.routeName: (_) =>
             CategoriesMealsScreen(availableMeals: _availableMeals),
-        MealInfo.routeName: (_) => const MealInfo(),
+        MealInfo.routeName: (_) => MealInfo(
+            addFavoriteToggle: _addFavoriteToggle, isFavorited: _isFavorited),
         FilterScreen.routeName: (_) =>
             FilterScreen(filters: _filters, setFilters: _setFilter),
       },

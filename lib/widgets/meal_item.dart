@@ -3,7 +3,6 @@ import 'package:flutter_routing/modules/meals.dart';
 import 'package:flutter_routing/pages/meal_info_screen.dart';
 import 'package:flutter_routing/widgets/meal_info_bar_item.dart';
 
-
 class MealItem extends StatelessWidget {
   final String title;
   final String id;
@@ -11,7 +10,6 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
-  final Function removeMeal;
 
   const MealItem({
     super.key,
@@ -21,7 +19,6 @@ class MealItem extends StatelessWidget {
     required this.duration,
     required this.complexity,
     required this.affordability,
-    required this.removeMeal,
   });
 
   void _selectMeal(BuildContext context) {
@@ -29,7 +26,7 @@ class MealItem extends StatelessWidget {
         .pushNamed(MealInfo.routeName, arguments: id)
         .then((result) {
       if (result != null) {
-        removeMeal(result);
+        // removeMeal(result);
       }
     });
   }

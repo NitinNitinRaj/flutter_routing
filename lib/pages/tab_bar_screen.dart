@@ -30,7 +30,7 @@ class _TabPageState extends State<TabPage> {
             ],
           ),
         ),
-        body: TabBarView(children: [CategoriesScreen(), const FavoriteMeals()]),
+        // body: TabBarView(children: [CategoriesScreen(), FavoriteMeals()]),
       ),
     );
   }

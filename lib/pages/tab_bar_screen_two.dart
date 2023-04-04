@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_routing/modules/meals.dart';
 import 'package:flutter_routing/pages/categories_screen.dart';
 import 'package:flutter_routing/pages/favorite_screen.dart';
 import 'package:flutter_routing/widgets/main_drawer.dart';
 
 class TabPageTwo extends StatefulWidget {
-  const TabPageTwo({super.key});
+  final List<Meal> favoriteMeals;
+
+  const TabPageTwo({super.key, required this.favoriteMeals});
 
   @override
   State<TabPageTwo> createState() => _TabPageTwoState();
 }
 
 class _TabPageTwoState extends State<TabPageTwo> {
-  final List<Map<String, Object>> _pages = [
-    {"page": CategoriesScreen(), "title": "Categories"},
-    {"page": const FavoriteMeals(), "title": "Favorites"},
-  ];
+  late List<Map<String, Object>> _pages;
+  @override
+  void initState() {
+    _pages = [
+      {"page": CategoriesScreen(), "title": "Categories"},
+      {
+        "page": FavoriteMeals(favoriteMeals: widget.favoriteMeals),
+        "title": "Favorites"
+      },
+    ];
+    super.initState();
+  }
 
   int _selectedPageIndex = 0;
 
